@@ -14,6 +14,10 @@ git config user.name "Travis-CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
 git checkout -b $TARGET_BRANCH
 
+if [[ `git ls-remote --heads $SSH_REPO $TARGET_BRANCH` ]]; then
+    git pull -r $SSH_REPO $TARGET_BRANCH
+fi
+
 updateFile
 
 if [[ `git status --porcelain` ]]; then
