@@ -2,7 +2,7 @@
 set -e
 
 function updateFile {
-  ruby init.rb
+  rake start
 }
 
 REPO=`git config remote.origin.url`

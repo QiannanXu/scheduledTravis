@@ -1,0 +1,7 @@
+require 'securerandom'
+
+task :start do
+  File.open("hello.txt", 'w') do |file|
+    file.write(SecureRandom.uuid)
+  end
+end
