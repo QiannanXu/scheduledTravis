@@ -15,7 +15,8 @@ if [ -z `git diff --exit-code` ]; then
     exit 0
 fi
 
-git add .
+git status
+git add -A
 git commit -m "Daily cronjob update ${SHA}"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc

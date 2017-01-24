@@ -1,7 +1,7 @@
 language: ruby
 rvm:
 - 2.2
-script: bash ./start.sh
+script: "./start.sh"
 env:
   global:
   - ENCRYPTION_LABEL: f996a0be0572
