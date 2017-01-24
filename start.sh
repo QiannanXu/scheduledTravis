@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+function updateFile {
+  ruby init.rb
+}
+
 REPO=`git config remote.origin.url`
 SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
 SHA=`git rev-parse --verify HEAD`
@@ -10,10 +14,13 @@ git config user.name "Travis-CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
 git checkout -b $TARGET_BRANCH
 
-ruby init.rb
+updateFile
+
+if [[ `git status --porcelain` ]]; then
+  updateFile
+fi
 
 git add -A
-git status
 git commit -m "Daily cronjob update ${SHA}"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc

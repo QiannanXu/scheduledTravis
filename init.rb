@@ -1,4 +1,5 @@
-Dir['tmp/*'].each do |path|
-  reversed_name = File.basename(path, '.txt').reverse
-  File.rename(path, File.dirname(path) + '/' + reversed_name + '.txt')
+require 'SecureRandom'
+
+File.open("hello.txt", 'w') do |file|
+  file.write(SecureRandom.uuid)
 end
