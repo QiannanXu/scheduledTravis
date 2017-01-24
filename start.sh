@@ -3,20 +3,17 @@ set -e
 
 REPO=`git config remote.origin.url`
 SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
-TARGET_BRANCH=master
+SHA=`git rev-parse --verify HEAD`
+TARGET_BRANCH=scheduled
+
+git config user.name "Travis-CI"
+git config user.email "$COMMIT_AUTHOR_EMAIL"
+git checkout -b $TARGET_BRANCH
 
 ruby init.rb
 
-git config user.name "Travis CI"
-git config user.email "$COMMIT_AUTHOR_EMAIL"
-
-if [ -z `git diff --exit-code` ]; then
-    echo "No changes on this push; exiting."
-    exit 0
-fi
-
-git status
 git add -A
+git status
 git commit -m "Daily cronjob update ${SHA}"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
