@@ -4,7 +4,7 @@ branches:
 language: ruby
 rvm:
 - 2.2
-script: "./start.sh"
+script: bash ./start.sh
 env:
   global:
   - ENCRYPTION_LABEL: f996a0be0572
